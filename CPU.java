@@ -1,3 +1,93 @@
 public class CPU {
-    // faz o ciclo de fetch, decode e execute
+
+    private Lib lib;
+    private Registradores regs;
+
+    private short PC;
+    private short IR;
+    private boolean running;
+
+    public CPU(Lib lib) {
+        this.lib = lib;
+        this.regs = new Registradores();
+        this.PC = 1; // conforme ISA
+        this.running = true;
+    }
+
+    public void run() {
+        while (running) {
+            fetch();
+            decodeExecute();
+        }
+        System.out.println("Programa finalizado.");
+    }
+
+    private void fetch() {
+        IR = lib.memory_read(PC);
+        PC++;
+    }
+
+    private void decodeExecute() {
+        int formato = lib.extract_bits(IR, 15, 1);
+        if (formato == 0) {
+            executeR();
+        } else {
+            executeI();
+        }
+    }
+
+    private void executeR() {
+        int opcode = lib.extract_bits(IR, 9, 6);
+        int rd = lib.extract_bits(IR, 6, 3);
+        int rs = lib.extract_bits(IR, 3, 3);
+        int rt = lib.extract_bits(IR, 0, 3);
+
+        switch (opcode) {
+            case Opcodes.ADD:
+                regs.set(rd, (short)(regs.get(rs) + regs.get(rt)));
+                break;
+            case Opcodes.SUB:
+                regs.set(rd, (short)(regs.get(rs) - regs.get(rt)));
+                break;
+            case Opcodes.AND:
+                regs.set(rd, (short)(regs.get(rs) & regs.get(rt)));
+                break;
+            case Opcodes.OR:
+                regs.set(rd, (short)(regs.get(rs) | regs.get(rt)));
+                break;
+            case Opcodes.STORE:
+                lib.memory_write(regs.get(rd), regs.get(rs));
+                break;
+            case Opcodes.LOAD:
+                regs.set(rd, lib.memory_read(regs.get(rs)));
+                break;
+            case Opcodes.SYSCALL:
+                if (regs.get(0) == 0) running = false;
+                break;
+            default:
+                System.out.println("Opcode R invalido: " + opcode);
+                running = false;
+        }
+    }
+
+    private void executeI() {
+        int opcode = lib.extract_bits(IR, 13, 2);
+        int reg = lib.extract_bits(IR, 10, 3);
+        short imm = lib.extract_bits(IR, 0, 10);
+
+        switch (opcode) {
+            case Opcodes.MOV:
+                regs.set(reg, imm);
+                break;
+            case Opcodes.JUMP:
+                PC = imm;
+                break;
+            case Opcodes.JUMP_COND:
+                if (regs.get(reg) != 0) PC = imm;
+                break;
+            default:
+                System.out.println("Opcode I invalido: " + opcode);
+                running = false;
+        }
+    }
 }

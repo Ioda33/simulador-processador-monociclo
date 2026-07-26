@@ -1,3 +1,16 @@
 public class Opcodes {
-    // cria os opcodes - operações a serem feitas
+
+    // Formato R
+    public static final int ADD = 0;
+    public static final int SUB = 1;
+    public static final int AND = 2;
+    public static final int OR  = 3;
+    public static final int STORE = 4;
+    public static final int LOAD  = 5;
+    public static final int SYSCALL = 63;
+
+    // Formato I
+    public static final int MOV = 0;
+    public static final int JUMP = 1;
+    public static final int JUMP_COND = 2;
 }

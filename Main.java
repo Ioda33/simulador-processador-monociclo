@@ -1,3 +1,9 @@
 public class Main {
-    // código principal
+    public static void main(String[] args) {
+        Lib lib = new Lib();
+        lib.load_binary("program.bin");
+
+        CPU cpu = new CPU(lib);
+        cpu.run();
+    }
 }
