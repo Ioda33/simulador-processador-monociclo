@@ -1,4 +1,6 @@
 public class Registradores {
+    private static final int NUM_REGISTRADORES = 8;
+
     private short[] r;
 
     public Registradores(){
@@ -6,10 +8,18 @@ public class Registradores {
     }
 
     public short get(int indice) {
-        return r[indice & 0x7];
+        if (indice < 0 || indice >= NUM_REGISTRADORES) {
+            System.out.println("Erro: tentativa de acesso ao registrador " + indice + " (intervalo válido: 0 a " + (NUM_REGISTRADORES - 1) + ").");
+            System.exit(1);
+        }
+        return r[indice];
     }
 
     public void set(int indice, short value) {
-        r[indice & 0x7] = value;
+        if (indice < 0 || indice >= NUM_REGISTRADORES) {
+            System.out.println("Erro: tentativa de acesso ao registrador " + indice + " (intervalo válido: 0 a " + (NUM_REGISTRADORES - 1) + ").");
+            System.exit(1);
+        }
+        r[indice] = value;
     }
 }

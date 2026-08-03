@@ -18,12 +18,22 @@ public class Lib {
 
     public void memory_write (short addr, short value)
     {
-        memory[addr & 0xFFFF] = value;
+        int a = addr & 0xFFFF;
+        if (a >= tmem) {
+            System.out.println("Erro: tentativa de escrita no endereço " + a + " (limite de memória: 0 a " + (tmem - 1) + ").");
+            System.exit(1);
+        }
+        memory[a] = value;
     }
 
     public short memory_read(short addr)
     {
-        return memory[addr & 0xFFFF];
+        int a = addr & 0xFFFF;
+        if (a >= tmem) {
+            System.out.println("Erro: tentativa de leitura no endereço " + a + " (limite de memória: 0 a " + (tmem - 1) + ").");
+            System.exit(1);
+        }
+        return memory[a];
     }
 
     void load_binary (String binary_name)
