@@ -61,6 +61,23 @@ public class CPU {
             case Opcodes.LOAD:
                 regs.set(rd, lib.memory_read(regs.get(rs)));
                 break;
+            case Opcodes.MUL:
+                regs.set(rd, (short)(regs.get(rs) * regs.get(rt)));
+                break;
+            case Opcodes.DIV:
+                if (regs.get(rt) != 0) {
+                    regs.set(rd, (short)(regs.get(rs) / regs.get(rt)));
+                } else {
+                    System.out.println("Falha de execução: Divisão por zero.");
+                    running = false;
+                }
+                break;
+            case Opcodes.CMP_EQUAL:
+                regs.set(rd, (short)(regs.get(rs) == regs.get(rt) ? 1 : 0));
+                break;
+            case Opcodes.CMP_NEQ:
+                regs.set(rd, (short)(regs.get(rs) != regs.get(rt) ? 1 : 0));
+                break;
             case Opcodes.SYSCALL:
                 if (regs.get(0) == 0) running = false;
                 break;
