@@ -7,6 +7,10 @@ public class Opcodes {
     public static final int OR  = 3;
     public static final int STORE = 4;
     public static final int LOAD  = 5;
+    public static final int MUL = 6;
+    public static final int DIV = 7;
+    public static final int CMP_EQUAL = 8;
+    public static final int CMP_NEQ = 9;
     public static final int SYSCALL = 63;
 
     // Formato I
