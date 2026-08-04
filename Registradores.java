@@ -24,8 +24,8 @@ public class Registradores {
     }
 
     public void print() {
-        for(int i = 0; i <= NUM_REGISTRADORES) {
-            System.out.println("r" + i + ": " + r[i])
+        for(int i = 0; i <= NUM_REGISTRADORES; i++) {
+            System.out.println("r" + i + ": " + r[i]);
         }
     }
 }
