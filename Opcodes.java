@@ -16,5 +16,5 @@ public class Opcodes {
     // Formato I
     public static final int JUMP = 0;
     public static final int JUMP_COND = 1;
-    public static final int MOVE = 3;
+    public static final int MOV = 3;
 }
