@@ -100,7 +100,7 @@ public class CPU {
                 PC = imm;
                 break;
             case Opcodes.JUMP_COND:
-                if (regs.get(reg) != 0) PC = imm;
+                if (regs.get(reg) = 1) PC = imm;
                 break;
             default:
                 System.out.println("Opcode I invalido: " + opcode);
