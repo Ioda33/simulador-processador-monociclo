@@ -20,6 +20,7 @@ public class CPU {
             decodeExecute();
         }
         System.out.println("Programa finalizado.");
+        Registradores.print();
     }
 
     private void fetch() {
