@@ -56,7 +56,7 @@ public class CPU {
                 regs.set(rd, (short)(regs.get(rs) | regs.get(rt)));
                 break;
             case Opcodes.STORE:
-                lib.memory_write(regs.get(rs), regs.get(rd)); 
+                lib.memory_write(regs.get(rs), regs.get(rt)); 
                 break;
             case Opcodes.LOAD:
                 regs.set(rd, lib.memory_read(regs.get(rs)));
