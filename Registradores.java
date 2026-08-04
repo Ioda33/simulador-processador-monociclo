@@ -22,4 +22,10 @@ public class Registradores {
         }
         r[indice] = value;
     }
+
+    public void print() {
+        for(int i = 0; i <= NUM_REGISTRADORES) {
+            System.out.println("r" + i + ": " + r[i])
+        }
+    }
 }
