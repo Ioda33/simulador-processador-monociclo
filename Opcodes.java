@@ -14,7 +14,7 @@ public class Opcodes {
     public static final int SYSCALL = 63;
 
     // Formato I
-    public static final int MOV = 0;
-    public static final int JUMP = 1;
-    public static final int JUMP_COND = 2;
+    public static final int JUMP = 0;
+    public static final int JUMP_COND = 1;
+    public static final int MOVE = 3;
 }
