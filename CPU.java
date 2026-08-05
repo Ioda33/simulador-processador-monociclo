@@ -50,18 +50,6 @@ public class CPU {
             case Opcodes.SUB:
                 regs.set(rd, (short)(regs.get(rs) - regs.get(rt)));
                 break;
-            case Opcodes.AND:
-                regs.set(rd, (short)(regs.get(rs) & regs.get(rt)));
-                break;
-            case Opcodes.OR:
-                regs.set(rd, (short)(regs.get(rs) | regs.get(rt)));
-                break;
-            case Opcodes.STORE:
-                lib.memory_write(regs.get(rs), regs.get(rt)); 
-                break;
-            case Opcodes.LOAD:
-                regs.set(rd, lib.memory_read(regs.get(rs)));
-                break;
             case Opcodes.MUL:
                 regs.set(rd, (short)(regs.get(rs) * regs.get(rt)));
                 break;
@@ -78,6 +66,12 @@ public class CPU {
                 break;
             case Opcodes.CMP_NEQ:
                 regs.set(rd, (short)(regs.get(rs) != regs.get(rt) ? 1 : 0));
+                break;
+            case Opcodes.LOAD:
+                regs.set(rd, lib.memory_read(regs.get(rs)));
+                break;
+            case Opcodes.STORE:
+                lib.memory_write(regs.get(rs), regs.get(rt));
                 break;
             case Opcodes.SYSCALL:
                 if (regs.get(0) == 0) running = false;
