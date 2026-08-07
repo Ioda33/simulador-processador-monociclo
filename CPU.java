@@ -31,18 +31,22 @@ public class CPU {
     private void decode() {
         int formato = lib.extract_bits(IR, 15, 1);
         if (formato == 0) {
-            executeR();
+            int opcode = lib.extract_bits(IR, 9, 6);
+            int rd = lib.extract_bits(IR, 6, 3);
+            int rs = lib.extract_bits(IR, 3, 3);
+            int rt = lib.extract_bits(IR, 0, 3);
+            
+            executeR(opcode, rd, rs, rt);
         } else {
-            executeI();
+            int opcode = lib.extract_bits(IR, 13, 2);
+            int reg = lib.extract_bits(IR, 10, 3);
+            short imm = lib.extract_bits(IR, 0, 10);
+
+            executeI(opcode, reg, imm);
         }
     }
 
-    private void executeR() {
-        int opcode = lib.extract_bits(IR, 9, 6);
-        int rd = lib.extract_bits(IR, 6, 3);
-        int rs = lib.extract_bits(IR, 3, 3);
-        int rt = lib.extract_bits(IR, 0, 3);
-
+    private void executeR(int opcode, int rd, int rs, int rt) {
         switch (opcode) {
             case Opcodes.ADD:
                 regs.set(rd, (short)(regs.get(rs) + regs.get(rt)));
@@ -82,11 +86,7 @@ public class CPU {
         }
     }
 
-    private void executeI() {
-        int opcode = lib.extract_bits(IR, 13, 2);
-        int reg = lib.extract_bits(IR, 10, 3);
-        short imm = lib.extract_bits(IR, 0, 10);
-
+    private void executeI(int opcode, int reg, short imm) {
         switch (opcode) {
             case Opcodes.MOV:
                 regs.set(reg, imm);
