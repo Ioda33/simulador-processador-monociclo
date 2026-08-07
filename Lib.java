@@ -31,7 +31,7 @@ public class Lib {
         int a = addr;
             if (a < 0 || a >= tmem) {
             System.out.println("Erro: tentativa de leitura no endereço " + a + " (limite de memória: 0 a " + (tmem - 1) + ").");
-             System.exit(1);
+            System.exit(1);
         }
         return memory[a];
     }
