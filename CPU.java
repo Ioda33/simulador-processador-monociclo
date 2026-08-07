@@ -17,7 +17,7 @@ public class CPU {
     public void run() {
         while (running) {
             fetch();
-            decodeExecute();
+            decode();
         }
         System.out.println("Programa finalizado.");
         regs.print();
@@ -28,7 +28,7 @@ public class CPU {
         PC++;
     }
 
-    private void decodeExecute() {
+    private void decode() {
         int formato = lib.extract_bits(IR, 15, 1);
         if (formato == 0) {
             executeR();
