@@ -18,8 +18,8 @@ public class Lib {
 
     public void memory_write (short addr, short value)
     {
-        int a = addr;
-        if (a < 0 || a >= tmem) {
+        int a = addr & 0xFFFF;
+        if (a >= tmem) {
             System.out.println("Erro: tentativa de escrita no endereço " + a + " (limite de memória: 0 a " + (tmem - 1) + ").");
             System.exit(1);
         }
@@ -28,8 +28,8 @@ public class Lib {
 
     public short memory_read(short addr)
     {
-        int a = addr;
-            if (a < 0 || a >= tmem) {
+        int a = addr & 0xFFFF;
+            if (a >= tmem) {
             System.out.println("Erro: tentativa de leitura no endereço " + a + " (limite de memória: 0 a " + (tmem - 1) + ").");
             System.exit(1);
         }
