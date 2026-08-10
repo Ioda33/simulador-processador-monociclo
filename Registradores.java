@@ -1,6 +1,5 @@
 public class Registradores {
     private static final int NUM_REGISTRADORES = 8;
-
     private short[] r;
 
     public Registradores(){
