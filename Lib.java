@@ -3,7 +3,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Lib {
-    public static final int tmem = 65536;
+    public static final int tmem = 2048;
     private short[] memory;
 
     public Lib() {
@@ -18,8 +18,8 @@ public class Lib {
 
     public void memory_write (short addr, short value)
     {
-        int a = addr & 0xFFFF;
-        if (a >= tmem) {
+        int a = addr;
+        if (a < 0 || a >= tmem) {
             System.out.println("Erro: tentativa de escrita no endereço " + a + " (limite de memória: 0 a " + (tmem - 1) + ").");
             System.exit(1);
         }
@@ -28,8 +28,8 @@ public class Lib {
 
     public short memory_read(short addr)
     {
-        int a = addr & 0xFFFF;
-            if (a >= tmem) {
+        int a = addr;
+            if (a < 0 || a >= tmem) {
             System.out.println("Erro: tentativa de leitura no endereço " + a + " (limite de memória: 0 a " + (tmem - 1) + ").");
             System.exit(1);
         }
