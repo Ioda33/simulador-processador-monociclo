@@ -1,5 +1,4 @@
 public class CPU {
-
     private Lib lib;
     private Registradores regs;
 
