@@ -18,8 +18,8 @@ public class CPU {
             fetch();
             decode();
         }
-        System.out.println("Programa finalizado.");
         regs.print();
+        System.out.println("Programa finalizado.");
     }
 
     private void fetch() {
