@@ -9,7 +9,7 @@ public class CPU {
     public CPU(Lib lib) {
         this.lib = lib;
         this.regs = new Registradores();
-        this.PC = 1; // conforme ISA
+        this.PC = 1;
         this.running = true;
     }
 
