@@ -3,7 +3,7 @@ public class Registradores {
     private short[] r;
 
     public Registradores(){
-        r = new short[8];
+        r = new short[NUM_REGISTRADORES];
     }
 
     public short get(int indice) {
