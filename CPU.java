@@ -16,7 +16,12 @@ public class CPU {
     public void run() {
         while (running) {
             fetch();
-            decode();
+            Instrucao instrucao = decode();
+            if(instrucao.formato == 0) {
+                executeR(instrucao.opcode, instrucao.rd, instrucao.rs, instrucao.rt);
+            } else {
+                executeI(instrucao.opcode, instrucao.reg, instrucao.imm);
+            }
         }
         regs.print();
         System.out.println("Programa finalizado.");
@@ -27,22 +32,21 @@ public class CPU {
         PC++;
     }
 
-    private void decode() {
-        int formato = lib.extract_bits(IR, 15, 1);
-        if (formato == 0) {
-            int opcode = lib.extract_bits(IR, 9, 6);
-            int rd = lib.extract_bits(IR, 6, 3);
-            int rs = lib.extract_bits(IR, 3, 3);
-            int rt = lib.extract_bits(IR, 0, 3);
-            
-            executeR(opcode, rd, rs, rt);
+    private Instrucao decode() {
+        Instrucao instrucao = new Instrucao();
+        instrucao.formato = lib.extract_bits(IR, 15, 1);
+        
+        if (instrucao.formato == 0) {
+            instrucao.opcode = lib.extract_bits(IR, 9, 6);
+            instrucao.rd = lib.extract_bits(IR, 6, 3);
+            instrucao.rs = lib.extract_bits(IR, 3, 3);
+            instrucao.rt = lib.extract_bits(IR, 0, 3);
         } else {
-            int opcode = lib.extract_bits(IR, 13, 2);
-            int reg = lib.extract_bits(IR, 10, 3);
-            short imm = lib.extract_bits(IR, 0, 10);
-
-            executeI(opcode, reg, imm);
+            instrucao.opcode = lib.extract_bits(IR, 13, 2);
+            instrucao.reg = lib.extract_bits(IR, 10, 3);
+            instrucao.imm = lib.extract_bits(IR, 0, 10);
         }
+        return instrucao;
     }
 
     private void executeR(int opcode, int rd, int rs, int rt) {
