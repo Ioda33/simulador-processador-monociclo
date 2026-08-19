@@ -81,7 +81,7 @@ public class CPU {
                 lib.memory_write(regs.get(rs), regs.get(rt));
                 break;
             case Opcodes.SYSCALL:
-                running = false;
+                if(regs.get(0) == 0) running = false;
                 break;
             default:
                 System.out.println("Opcode R invalido: " + opcode);
